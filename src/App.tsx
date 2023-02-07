@@ -1,19 +1,38 @@
+import { useEffect, useState } from 'react';
 import './App.css'
-import Img1 from './assets/IMG1.png'
-import Img2 from './assets/IMG2.png'
-import Img3 from './assets/IMG3.png'
+
+import getImages from "./helper/getImages";
 
 export default function App() {
 
-  const images = [Img1, Img2, Img3];
+  const [images, setImages] = useState([]);
+  const [image, setImage] = useState();
 
-  const random = Math.floor(Math.random() * images.length);
-  console.log(images[random]);
+  useEffect(() => {
+    async function loadImages() {
+      setImages(await getImages());
+    }
+
+    loadImages();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImage(getRandom);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [image]);
+
+  function getRandom() {
+    const random = Math.floor(Math.random() * images.length);
+    console.log("refresh");
+    return images[random];
+  }
 
   return (
     <div className="App">
       <div className='image'>
-        <img src={images[random]} alt="" />
+        <img src={image} />
       </div>
     </div>
   )

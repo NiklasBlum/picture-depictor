@@ -9,31 +9,28 @@ export default function App() {
   const [image, setImage] = useState();
 
   useEffect(() => {
-    async function loadImages() {
-      setImages(await getImages());
-    }
-
     loadImages();
   }, []);
+
+  async function loadImages() {
+    setImages(await getImages());
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
       setImage(getRandom);
     }, 3000);
     return () => clearInterval(interval);
-  }, [image]);
+  });
 
   function getRandom() {
     const random = Math.floor(Math.random() * images.length);
-    console.log("refresh");
     return images[random];
   }
 
   return (
     <div className="App">
-      <div className='image'>
-        <img src={image} />
-      </div>
+      <img className="image" src={image} />
     </div>
   )
 }

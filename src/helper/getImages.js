@@ -10,6 +10,6 @@ export default async function getAll() {
         var url = await getDownloadURL(item);
         urls.push(url);
     }
-    console.log(urls);
+    
     return urls;
 }
